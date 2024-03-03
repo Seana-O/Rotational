@@ -18,10 +18,16 @@ public class LevelInitializer : MonoBehaviour
     List<Block> blocks;
     List<(int x, int y, SpikeDirection dir)> spikes;
 
+    int tileSize = 50;
+
     void Start()
     {
         if (!ValidSetup())
             Debug.LogError("invalid setup");
+
+        openTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
+        closedTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
+        finishTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
 
         InitializeGrid();
     }
@@ -118,7 +124,6 @@ public class LevelInitializer : MonoBehaviour
 
     Vector2 GetWorldLocation(int gridX, int gridY)
     {
-        int tileSize = 80;
         float width = (int)(setup.Width/2);
         float height = (int)(setup.Height/2);
 
