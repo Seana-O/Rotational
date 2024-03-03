@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.IO.Pipes;
 
 public class LevelInitializer : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class LevelInitializer : MonoBehaviour
     GameObject tileParent;
 
     TileType[,] grid;
-    List<(int x, int y, SpikeDirection dir)> spikes;
 
     int tileSize = 50;
 
@@ -31,7 +31,7 @@ public class LevelInitializer : MonoBehaviour
         SetTileSize(closedTilePrefab, size);
         SetTileSize(finishTilePrefab, size);
         SetTileSize(boxPrefab, size);
-        //SetTileSize(spikePrefab, size);
+        SetTileSize(spikePrefab, new Vector2(tileSize, tileSize/8));
         SetTileSize(playerPrefab, size - new Vector2(1, 1));
 
         tileParent = new GameObject("Tiles");
@@ -54,7 +54,6 @@ public class LevelInitializer : MonoBehaviour
         int width = setup.Width;
         int height = setup.Height;
         grid = new TileType[width, height];
-        spikes = new();
 
         // create grid boundaries
         for(int x = 0; x < width; x++)
@@ -90,10 +89,12 @@ public class LevelInitializer : MonoBehaviour
                     case 'b':
                         t = TileType.Open;
                         PlaceBlock(x, y);
+                        CreateTile(x, y, openTilePrefab);
                         break;
                     case 'p':
                         t = TileType.Open;
                         PlacePlayer(x, y);
+                        CreateTile(x, y, openTilePrefab);
                         break;
                 }
                 grid[x,y] = t;
@@ -101,27 +102,21 @@ public class LevelInitializer : MonoBehaviour
                 // add spikes
                 for(int i = 0; i < setup.numberOfSpikeSets; i++)
                 {
-                    SpikeDirection dir = new SpikeDirection();
-
                     switch(setup.SpikeSets[i * width * height + y * width + x])
                     {
                         case 'n':
-                            dir = SpikeDirection.North;
+                            PlaceSpike(x, y, SpikeDirection.North);
                             break;
                         case 'e':
-                            dir = SpikeDirection.East;
+                            PlaceSpike(x, y, SpikeDirection.East);
                             break;
                         case 's':
-                            dir = SpikeDirection.South;
+                            PlaceSpike(x, y, SpikeDirection.South);
                             break;
                         case 'w':
-                            dir = SpikeDirection.West;
+                            PlaceSpike(x, y, SpikeDirection.West);
                             break;
                     }
-
-                    PlaceSpike(x, y, dir);
-
-                    spikes.Add((x, y, dir));
                 }
             }
     }
@@ -139,8 +134,34 @@ public class LevelInitializer : MonoBehaviour
 
     void PlaceSpike(int x, int y, SpikeDirection dir)
     {
-        
+        GameObject spike = Instantiate(spikePrefab, canvas.transform);
+
+        int zRotation = 0;
+        Vector2 location = GetWorldLocation(x,y);
+
+        switch (dir)
+        {
+            case SpikeDirection.North:
+                location.y += tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                zRotation = 180;
+                break;
+            case SpikeDirection.East:
+                location.x += tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                zRotation = 90;
+                break;
+            case SpikeDirection.South:
+                location.y -= tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                break;
+            case SpikeDirection.West:
+                location.x -= tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                zRotation = -90;
+                break;
+        }
+
+        spike.transform.localPosition = location;
+        spike.transform.Rotate(new Vector3(0, 0, zRotation)); 
     }
+
     void CreateTile(int x, int y, GameObject prefab)
     {
         GameObject tile = Instantiate(prefab, tileParent.transform);

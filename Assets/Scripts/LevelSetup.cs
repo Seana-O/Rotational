@@ -16,7 +16,7 @@ public class LevelSetup : MonoBehaviour
         "wn-n"+
         "----"+
         "w--e"+
-        "---e"
+        "s--e"
         +
         "----"+
         "----"+

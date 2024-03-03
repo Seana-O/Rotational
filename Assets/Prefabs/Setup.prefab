@@ -425,8 +425,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setup: {fileID: 0}
   playerPrefab: {fileID: 7212651179312935644, guid: ee0faead42305ca4397643f808dd9501, type: 3}
-  boxPrefab: {fileID: 0}
-  spikePrefab: {fileID: 0}
+  boxPrefab: {fileID: 7212651179312935644, guid: 1d0864c2f2239fd40baaa71cc45f18d1, type: 3}
+  spikePrefab: {fileID: 6751633294264600435, guid: c9b97ae9e4aebe642a7f2f4e629eb39c, type: 3}
   openTilePrefab: {fileID: 6751633294264600435, guid: 39b9e7786eb2a154b912ad73b99c7661, type: 3}
   closedTilePrefab: {fileID: 7834987231755192509, guid: 4c2e62714ecff6f4fb60e067b24a1533, type: 3}
   finishTilePrefab: {fileID: 4659073956334380422, guid: fc73640a8c319564da5c85c5af827e03, type: 3}

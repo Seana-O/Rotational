@@ -33,6 +33,10 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Level finished");
     }
+    public void LevelFailed()
+    {
+        Debug.Log("Level failed");
+    }
 
     public void PauseGame()
     {

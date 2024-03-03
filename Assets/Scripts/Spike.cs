@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinishTile : MonoBehaviour
+public class Spike : MonoBehaviour
 {
     GameController gameController;
 
@@ -14,6 +14,6 @@ public class FinishTile : MonoBehaviour
     private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
-            gameController.FinishLevel();
+            gameController.LevelFailed();
     }
 }

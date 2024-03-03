@@ -172,11 +172,6 @@ RectTransform:
   m_AnchoredPosition: {x: 960, y: 540}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1402549711 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 184390328420493611, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
-  m_PrefabInstance: {fileID: 8214513669655922380}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8214513669655922380
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,13 +185,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 373895101}
     - target: {fileID: 2841084332605487051, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1402549711}
-    - target: {fileID: 2841084332605487051, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
       propertyPath: boxPrefab
       value: 
       objectReference: {fileID: 7212651179312935644, guid: 1d0864c2f2239fd40baaa71cc45f18d1, type: 3}
+    - target: {fileID: 2841084332605487051, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
+      propertyPath: spikePrefab
+      value: 
+      objectReference: {fileID: 6751633294264600435, guid: c9b97ae9e4aebe642a7f2f4e629eb39c, type: 3}
     - target: {fileID: 3334233217861437469, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
       propertyPath: m_Name
       value: Setup

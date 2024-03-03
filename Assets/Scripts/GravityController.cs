@@ -8,13 +8,13 @@ public class GravityController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             SetGravity(GravityDirection.Up);
-        else if(Input.GetKeyDown(KeyCode.DownArrow))
+        else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             SetGravity(GravityDirection.Down);
-        else if(Input.GetKeyDown(KeyCode.LeftArrow))
+        else if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             SetGravity(GravityDirection.Left);
-        else if(Input.GetKeyDown(KeyCode.RightArrow))
+        else if(Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             SetGravity(GravityDirection.Right);
     }
 
@@ -40,6 +40,7 @@ public class GravityController : MonoBehaviour
 
         foreach(Rigidbody2D rb in rigidbodies)
             rb.velocity = Vector2.zero;
+
     }
 
     enum GravityDirection
