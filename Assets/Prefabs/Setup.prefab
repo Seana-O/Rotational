@@ -279,7 +279,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.15723258, g: 0.15723258, b: 0.15723258, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -352,7 +352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3334233217861437469}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -374,6 +374,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2328371647003224794}
   - component: {fileID: 2517851439478074041}
+  - component: {fileID: 2841084332605487051}
+  - component: {fileID: 4599186828605846685}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -409,6 +411,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseScreen: {fileID: 7427674243162160133}
+--- !u!114 &2841084332605487051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3410968495992626681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9173d411e32393a4683e4589c7cb921b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setup: {fileID: 0}
+  playerPrefab: {fileID: 7212651179312935644, guid: ee0faead42305ca4397643f808dd9501, type: 3}
+  boxPrefab: {fileID: 0}
+  spikePrefab: {fileID: 0}
+  openTilePrefab: {fileID: 6751633294264600435, guid: 39b9e7786eb2a154b912ad73b99c7661, type: 3}
+  closedTilePrefab: {fileID: 7834987231755192509, guid: 4c2e62714ecff6f4fb60e067b24a1533, type: 3}
+  finishTilePrefab: {fileID: 4659073956334380422, guid: fc73640a8c319564da5c85c5af827e03, type: 3}
+  canvas: {fileID: 184390328420493611}
+--- !u!114 &4599186828605846685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3410968495992626681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c525022cfd0ed274cbcef2ef06b7272b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbodies: []
 --- !u!1 &3592410422505468014
 GameObject:
   m_ObjectHideFlags: 0

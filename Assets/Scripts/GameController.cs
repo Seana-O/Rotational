@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void FinishLevel()
+    public void FinishLevel()
     {
         Debug.Log("Level finished");
     }

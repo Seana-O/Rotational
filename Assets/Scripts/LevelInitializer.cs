@@ -12,7 +12,8 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField] GameObject openTilePrefab;
     [SerializeField] GameObject closedTilePrefab;
     [SerializeField] GameObject finishTilePrefab;
-    [SerializeField] GameObject objectParent;
+    [SerializeField] GameObject canvas;
+    GameObject tileParent;
 
     TileType[,] grid;
     List<Block> blocks;
@@ -27,7 +28,17 @@ public class LevelInitializer : MonoBehaviour
 
         openTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
         closedTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
+        closedTilePrefab.GetComponent<BoxCollider2D>().size = new Vector2(tileSize, tileSize);
         finishTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
+        finishTilePrefab.GetComponent<BoxCollider2D>().size = new Vector2(tileSize, tileSize);
+        //boxPrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
+        playerPrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize - 1, tileSize - 1);
+        playerPrefab.GetComponent<BoxCollider2D>().size = new Vector2(tileSize - 1, tileSize - 1);
+
+        tileParent = new GameObject("Tiles");
+        tileParent.transform.parent = canvas.transform;
+        tileParent.transform.localScale = new Vector3(1, 1, 1);
+        tileParent.transform.localPosition = new Vector3(0, 0, 0);
 
         InitializeGrid();
     }
@@ -40,6 +51,18 @@ public class LevelInitializer : MonoBehaviour
         blocks = new();
         spikes = new();
 
+        // create grid boundaries
+        for(int x = 0; x < width; x++)
+        {
+            CreateTile(x, -1, closedTilePrefab);
+            CreateTile(x, height, closedTilePrefab);
+        }
+        for(int y = 0; y < height; y++)
+        {
+            CreateTile(-1, y, closedTilePrefab);
+            CreateTile(width, y, closedTilePrefab);  
+        }
+
         for(int x = 0; x < width; x++)
             for(int y = 0; y < height; y++)
             {
@@ -49,18 +72,15 @@ public class LevelInitializer : MonoBehaviour
                 {
                     case 'o':
                         t = TileType.Open;
-                        GameObject oTile = Instantiate(openTilePrefab, objectParent.transform);
-                        oTile.transform.localPosition = GetWorldLocation(x,y);
+                        CreateTile(x, y, openTilePrefab);
                         break;
                     case 'x':
                         t = TileType.Closed;
-                        GameObject cTile = Instantiate(closedTilePrefab, objectParent.transform);
-                        cTile.transform.localPosition = GetWorldLocation(x,y);
+                        CreateTile(x, y, closedTilePrefab);
                         break;
                     case 'e':
                         t = TileType.Finish;
-                        GameObject fTile = Instantiate(finishTilePrefab, objectParent.transform);
-                        fTile.transform.localPosition = GetWorldLocation(x,y);
+                        CreateTile(x, y, finishTilePrefab);
                         break;
                     case 'b':
                         t = TileType.Open;
@@ -71,7 +91,6 @@ public class LevelInitializer : MonoBehaviour
                         PlacePlayer(x, y);
                         break;
                 }
-
                 grid[x,y] = t;
 
                 // add spikes
@@ -108,12 +127,18 @@ public class LevelInitializer : MonoBehaviour
 
     void PlacePlayer(int x, int y)
     {
-        Instantiate(playerPrefab, GetWorldLocation(x,y), new Quaternion());
+        GameObject player = Instantiate(playerPrefab, canvas.transform);
+        player.transform.localPosition = GetWorldLocation(x,y);
     }
 
     void PlaceSpike(int x, int y, SpikeDirection dir)
     {
         
+    }
+    void CreateTile(int x, int y, GameObject prefab)
+    {
+        GameObject tile = Instantiate(prefab, tileParent.transform);
+        tile.transform.localPosition = GetWorldLocation(x,y);
     }
 
     bool ValidSetup()
@@ -129,7 +154,6 @@ public class LevelInitializer : MonoBehaviour
 
         float x = (gridX - width) * tileSize + tileSize/2;
         float y = -((gridY - height) * tileSize + tileSize/2);
-        Debug.Log(x + " " + y);
 
         return new Vector2(x,y);
     }
