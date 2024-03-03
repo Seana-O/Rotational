@@ -193,6 +193,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1402549711}
+    - target: {fileID: 2841084332605487051, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
+      propertyPath: boxPrefab
+      value: 
+      objectReference: {fileID: 7212651179312935644, guid: 1d0864c2f2239fd40baaa71cc45f18d1, type: 3}
     - target: {fileID: 3334233217861437469, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
       propertyPath: m_Name
       value: Setup

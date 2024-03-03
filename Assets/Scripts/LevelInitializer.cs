@@ -16,7 +16,6 @@ public class LevelInitializer : MonoBehaviour
     GameObject tileParent;
 
     TileType[,] grid;
-    List<Block> blocks;
     List<(int x, int y, SpikeDirection dir)> spikes;
 
     int tileSize = 50;
@@ -26,14 +25,14 @@ public class LevelInitializer : MonoBehaviour
         if (!ValidSetup())
             Debug.LogError("invalid setup");
 
-        openTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
-        closedTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
-        closedTilePrefab.GetComponent<BoxCollider2D>().size = new Vector2(tileSize, tileSize);
-        finishTilePrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
-        finishTilePrefab.GetComponent<BoxCollider2D>().size = new Vector2(tileSize, tileSize);
-        //boxPrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize, tileSize);
-        playerPrefab.GetComponent<RectTransform>().sizeDelta = new Vector2(tileSize - 1, tileSize - 1);
-        playerPrefab.GetComponent<BoxCollider2D>().size = new Vector2(tileSize - 1, tileSize - 1);
+        Vector2 size = new Vector2(tileSize, tileSize);
+
+        SetTileSize(openTilePrefab, size);
+        SetTileSize(closedTilePrefab, size);
+        SetTileSize(finishTilePrefab, size);
+        SetTileSize(boxPrefab, size);
+        //SetTileSize(spikePrefab, size);
+        SetTileSize(playerPrefab, size - new Vector2(1, 1));
 
         tileParent = new GameObject("Tiles");
         tileParent.transform.parent = canvas.transform;
@@ -43,12 +42,18 @@ public class LevelInitializer : MonoBehaviour
         InitializeGrid();
     }
 
+    void SetTileSize(GameObject prefab, Vector2 size)
+    {
+        prefab.GetComponent<RectTransform>().sizeDelta = size;
+        if(prefab.TryGetComponent(out BoxCollider2D b))
+            b.size = size;
+    }
+
     void InitializeGrid()
     {
         int width = setup.Width;
         int height = setup.Height;
         grid = new TileType[width, height];
-        blocks = new();
         spikes = new();
 
         // create grid boundaries
@@ -122,7 +127,8 @@ public class LevelInitializer : MonoBehaviour
     }
     void PlaceBlock(int x, int y)
     {
-        //blocks.Add(new Block());
+        GameObject box = Instantiate(boxPrefab, canvas.transform);
+        box.transform.localPosition = GetWorldLocation(x,y);
     }
 
     void PlacePlayer(int x, int y)
