@@ -7,6 +7,7 @@ public class Object : MonoBehaviour
 {
     GravityController gravityController;
     public bool moving = false;
+    public GridPoint currentGridPoint;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class Object : MonoBehaviour
             {
                 moving = false;
                 gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                gameObject.transform.position = currentGridPoint.transform.position;
             }
             gameObject.layer = LayerMask.NameToLayer("Default");
         }

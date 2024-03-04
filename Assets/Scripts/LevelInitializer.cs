@@ -30,7 +30,7 @@ public class LevelInitializer : MonoBehaviour
         SetTileSize(openTilePrefab, size);
         SetTileSize(closedTilePrefab, size);
         SetTileSize(finishTilePrefab, size);
-        SetTileSize(boxPrefab, size);
+        SetTileSize(boxPrefab, size - new Vector2(1, 1));
         SetTileSize(spikePrefab, new Vector2(tileSize, tileSize/8));
         SetTileSize(playerPrefab, size - new Vector2(1, 1));
 
