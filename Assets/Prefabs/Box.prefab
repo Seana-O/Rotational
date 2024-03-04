@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 723932975592516232}
   - component: {fileID: 4661589230305951730}
   - component: {fileID: 5965797140431162012}
-  - component: {fileID: 2120095289358282883}
+  - component: {fileID: 5554540603178660903}
   - component: {fileID: -2672840498200353140}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Box
   m_TagString: Box
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7212651179312935644}
   m_CullTransparentMesh: 1
---- !u!114 &2120095289358282883
+--- !u!114 &5554540603178660903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,8 +133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28588966, g: 0, b: 0.6039216, a: 1}
-  m_RaycastTarget: 0
+  m_Color: {r: 0.28627452, g: 0, b: 0.6039216, a: 1}
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
