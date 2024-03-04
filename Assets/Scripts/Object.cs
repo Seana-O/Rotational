@@ -30,9 +30,16 @@ public class Object : MonoBehaviour
 
             if(hit.collider != null /*&& (hit.collider.CompareTag("ClosedTile") || hit.collider.CompareTag("Box") || hit.collider.CompareTag("Player")*/)
             {
-                moving = false;
-                gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                gameObject.transform.position = currentGridPoint.transform.position;
+                if (gameObject.CompareTag("Player") && hit.collider.gameObject.CompareTag("Spike"))
+                {
+                    FindObjectOfType<GameController>().LevelFailed();
+                }
+                else
+                {
+                    moving = false;
+                    gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    gameObject.transform.position = currentGridPoint.transform.position;
+                }
             }
             gameObject.layer = LayerMask.NameToLayer("Default");
         }

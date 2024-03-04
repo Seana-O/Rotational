@@ -138,22 +138,23 @@ public class LevelInitializer : MonoBehaviour
 
         int zRotation = 0;
         Vector2 location = GetWorldLocation(x,y);
+        float locationOffset = tileSize/2 + spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2 - 1;
 
         switch (dir)
         {
             case SpikeDirection.North:
-                location.y += tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                location.y += locationOffset;
                 zRotation = 180;
                 break;
             case SpikeDirection.East:
-                location.x += tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                location.x += locationOffset;
                 zRotation = 90;
                 break;
             case SpikeDirection.South:
-                location.y -= tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                location.y -= locationOffset;
                 break;
             case SpikeDirection.West:
-                location.x -= tileSize/2 - spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2;
+                location.x -= locationOffset;
                 zRotation = -90;
                 break;
         }
