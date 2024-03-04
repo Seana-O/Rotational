@@ -5,37 +5,51 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] GameObject pauseScreen;
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject levelCompleteScreen;
 
     SceneSwitcher sceneSwitcher;
 
     bool paused = false;
+    bool playing = true;
 
     private void Start()
     {
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
         pauseScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        levelCompleteScreen.SetActive(false);
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
-            sceneSwitcher.ResetScene();
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        if (playing)
         {
-            if(!paused)   
-                PauseGame();
-            else
-                ResumeGame();
+            if(Input.GetKeyDown(KeyCode.R))
+                sceneSwitcher.ResetScene();
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if(!paused)   
+                    PauseGame();
+                else
+                    ResumeGame();
+            }
         }
     }
 
     public void FinishLevel()
     {
         Debug.Log("Level finished");
+        Time.timeScale = 0;
+        playing = false;
+        levelCompleteScreen.SetActive(true);
     }
     public void LevelFailed()
     {
         Debug.Log("Level failed");
+        Time.timeScale = 0;
+        playing = false;
+        gameOverScreen.SetActive(true);
     }
 
     public void PauseGame()

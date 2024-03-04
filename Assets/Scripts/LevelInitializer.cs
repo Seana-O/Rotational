@@ -13,8 +13,10 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField] GameObject openTilePrefab;
     [SerializeField] GameObject closedTilePrefab;
     [SerializeField] GameObject finishTilePrefab;
-    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject componentParent;
     GameObject tileParent;
+    GameObject spikeParent;
+    GameObject boxParent;
 
     TileType[,] grid;
 
@@ -35,9 +37,19 @@ public class LevelInitializer : MonoBehaviour
         SetTileSize(playerPrefab, size - new Vector2(1, 1));
 
         tileParent = new GameObject("Tiles");
-        tileParent.transform.parent = canvas.transform;
+        tileParent.transform.parent = componentParent.transform;
         tileParent.transform.localScale = new Vector3(1, 1, 1);
         tileParent.transform.localPosition = new Vector3(0, 0, 0);
+
+        spikeParent = new GameObject("Spikes");
+        spikeParent.transform.parent = componentParent.transform;
+        spikeParent.transform.localScale = new Vector3(1, 1, 1);
+        spikeParent.transform.localPosition = new Vector3(0, 0, 0);
+
+        boxParent = new GameObject("Boxes");
+        boxParent.transform.parent = componentParent.transform;
+        boxParent.transform.localScale = new Vector3(1, 1, 1);
+        boxParent.transform.localPosition = new Vector3(0, 0, 0);
 
         InitializeGrid();
     }
@@ -122,19 +134,19 @@ public class LevelInitializer : MonoBehaviour
     }
     void PlaceBlock(int x, int y)
     {
-        GameObject box = Instantiate(boxPrefab, canvas.transform);
+        GameObject box = Instantiate(boxPrefab, boxParent.transform);
         box.transform.localPosition = GetWorldLocation(x,y);
     }
 
     void PlacePlayer(int x, int y)
     {
-        GameObject player = Instantiate(playerPrefab, canvas.transform);
+        GameObject player = Instantiate(playerPrefab, componentParent.transform);
         player.transform.localPosition = GetWorldLocation(x,y);
     }
 
     void PlaceSpike(int x, int y, SpikeDirection dir)
     {
-        GameObject spike = Instantiate(spikePrefab, canvas.transform);
+        GameObject spike = Instantiate(spikePrefab, spikeParent.transform);
 
         int zRotation = 0;
         Vector2 location = GetWorldLocation(x,y);

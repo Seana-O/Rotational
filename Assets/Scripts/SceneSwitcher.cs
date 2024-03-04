@@ -21,5 +21,6 @@ public class SceneSwitcher : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
         loadedScene = sceneName;
+        Time.timeScale = 1;
     }
 }

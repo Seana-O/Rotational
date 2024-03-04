@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ClosedTile
   - Box
+  - Spike
   layers:
   - Default
   - TransparentFX
