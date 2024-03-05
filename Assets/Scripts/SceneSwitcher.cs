@@ -17,10 +17,19 @@ public class SceneSwitcher : MonoBehaviour
         SwitchToScene(loadedScene);
     }
 
+    public void NextLevel()
+    {
+        int currentLevel = int.Parse(loadedScene.Remove(0, 5));
+        Debug.Log(currentLevel);
+        int nextLevel = currentLevel + 1;
+        Debug.Log(nextLevel);
+        SwitchToScene("Level" + nextLevel.ToString());
+    }
+
     public void SwitchToScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
-        loadedScene = sceneName;
         Time.timeScale = 1;
+        loadedScene = sceneName;
+        SceneManager.LoadScene(sceneName);
     }
 }

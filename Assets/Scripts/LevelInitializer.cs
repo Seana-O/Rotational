@@ -6,7 +6,7 @@ using System.IO.Pipes;
 
 public class LevelInitializer : MonoBehaviour
 {
-    [SerializeField] LevelSetup setup;
+    [SerializeField] ILevelSetup setup;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject boxPrefab;
     [SerializeField] GameObject spikePrefab;
@@ -20,10 +20,12 @@ public class LevelInitializer : MonoBehaviour
 
     TileType[,] grid;
 
-    int tileSize = 50;
+    readonly int tileSize = 50;
 
     void Start()
     {
+        setup = GetComponent<SetupPicker>().GetSetup();
+
         if (!ValidSetup())
             Debug.LogError("invalid setup");
 
@@ -83,7 +85,7 @@ public class LevelInitializer : MonoBehaviour
             for(int y = 0; y < height; y++)
             {
                 // create grid
-                TileType t = new TileType();
+                TileType t = new();
                 switch (setup.Layout[y * width + x])
                 {
                     case 'o':
@@ -112,7 +114,7 @@ public class LevelInitializer : MonoBehaviour
                 grid[x,y] = t;
 
                 // add spikes
-                for(int i = 0; i < setup.numberOfSpikeSets; i++)
+                for(int i = 0; i < setup.NumberOfSpikeSets; i++)
                 {
                     switch(setup.SpikeSets[i * width * height + y * width + x])
                     {
@@ -184,7 +186,7 @@ public class LevelInitializer : MonoBehaviour
     bool ValidSetup()
     {
         return setup.Layout.Length == setup.Width * setup.Height 
-            && setup.Layout.Length == setup.SpikeSets.Length / setup.numberOfSpikeSets;
+            && setup.Layout.Length == setup.SpikeSets.Length / setup.NumberOfSpikeSets;
     }
 
     Vector2 GetWorldLocation(int gridX, int gridY)

@@ -340,8 +340,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1228977674131183225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0.000061035156, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -682,6 +682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5120277722712087532}
+  - component: {fileID: 776448254203872734}
   m_Layer: 5
   m_Name: LevelComponents
   m_TagString: Untagged
@@ -708,6 +709,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &776448254203872734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503875212605836958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e38788d15dd5144ab715edc1d9d14fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2593253068869445081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1071,7 @@ GameObject:
   - component: {fileID: 2328371647003224794}
   - component: {fileID: 2517851439478074041}
   - component: {fileID: 2841084332605487051}
+  - component: {fileID: 4358936257510537077}
   - component: {fileID: 4599186828605846685}
   m_Layer: 0
   m_Name: GameController
@@ -1108,7 +1122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9173d411e32393a4683e4589c7cb921b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setup: {fileID: 0}
   playerPrefab: {fileID: 7212651179312935644, guid: ee0faead42305ca4397643f808dd9501, type: 3}
   boxPrefab: {fileID: 7212651179312935644, guid: 1d0864c2f2239fd40baaa71cc45f18d1, type: 3}
   spikePrefab: {fileID: 6751633294264600435, guid: c9b97ae9e4aebe642a7f2f4e629eb39c, type: 3}
@@ -1116,6 +1129,19 @@ MonoBehaviour:
   closedTilePrefab: {fileID: 7834987231755192509, guid: 4c2e62714ecff6f4fb60e067b24a1533, type: 3}
   finishTilePrefab: {fileID: 4659073956334380422, guid: fc73640a8c319564da5c85c5af827e03, type: 3}
   componentParent: {fileID: 2503875212605836958}
+--- !u!114 &4358936257510537077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3410968495992626681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1dce183837c67c498b1a7c46639fc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
 --- !u!114 &4599186828605846685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,6 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objects: []
   gravityDirection: {x: 0, y: 0}
+  waitingForRotation: 0
 --- !u!1 &3448892258006063244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,7 +1280,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 835866183383909617}
         m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
-        m_MethodName: ResetScene
+        m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

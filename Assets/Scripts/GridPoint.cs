@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GridPoint : MonoBehaviour
 {
+    public bool isEndGridPoint = false;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Object obj = collision.gameObject.GetComponent<Object>();

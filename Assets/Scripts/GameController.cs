@@ -39,14 +39,12 @@ public class GameController : MonoBehaviour
 
     public void FinishLevel()
     {
-        Debug.Log("Level finished");
         Time.timeScale = 0;
         playing = false;
         levelCompleteScreen.SetActive(true);
     }
     public void LevelFailed()
     {
-        Debug.Log("Level failed");
         Time.timeScale = 0;
         playing = false;
         gameOverScreen.SetActive(true);

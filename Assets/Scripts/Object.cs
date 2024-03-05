@@ -24,16 +24,16 @@ public class Object : MonoBehaviour
             Vector3[] v = new Vector3[4];
             GetComponent<RectTransform>().GetWorldCorners(v);
 
-            float size = v[2].x - v[0].x; // width and height should be the same
+            float size = Mathf.Abs(v[2].x - v[0].x); // width and height should be the same
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, gravityDir, size/2 + 1);
 
             if(hit.collider != null /*&& (hit.collider.CompareTag("ClosedTile") || hit.collider.CompareTag("Box") || hit.collider.CompareTag("Player")*/)
             {
                 if (gameObject.CompareTag("Player") && hit.collider.gameObject.CompareTag("Spike"))
-                {
                     FindObjectOfType<GameController>().LevelFailed();
-                }
+                else if(gameObject.CompareTag("Player") && currentGridPoint.isEndGridPoint)
+                    FindObjectOfType<GameController>().FinishLevel();
                 else
                 {
                     moving = false;
@@ -50,8 +50,11 @@ public class Object : MonoBehaviour
         Vector3[] v = new Vector3[4];
         GetComponent<RectTransform>().GetWorldCorners(v);
 
-        float size = v[2].x - v[0].x; // width and height should be the same
+        float size = Mathf.Abs(v[2].x - v[0].x); // width and height should be the same
 
         Gizmos.DrawRay(transform.position, gravityDir * (size/2+1));
+        Gizmos.DrawSphere(transform.position, 10);
+
+        Gizmos.DrawRay(Vector3.zero, gravityDir);
     }
 }
