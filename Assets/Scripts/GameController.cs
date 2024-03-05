@@ -19,6 +19,9 @@ public class GameController : MonoBehaviour
         pauseScreen.SetActive(false);
         gameOverScreen.SetActive(false);
         levelCompleteScreen.SetActive(false);
+        paused = false;
+        playing = true;
+        Time.timeScale = 1;
     }
 
     void Update()
