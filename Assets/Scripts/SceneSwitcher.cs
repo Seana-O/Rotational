@@ -18,9 +18,7 @@ public class SceneSwitcher : MonoBehaviour
     public void NextLevel()
     {
         int currentLevel = int.Parse(loadedScene.Remove(0, 5));
-        Debug.Log(currentLevel);
         int nextLevel = currentLevel + 1;
-        Debug.Log(nextLevel);
         SwitchToScene("Level" + nextLevel.ToString());
     }
 

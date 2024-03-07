@@ -1,29 +1,70 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SetupPicker : MonoBehaviour
 {
     [SerializeField] int level;
 
-    public ILevelSetup GetSetup()
+    public LevelSetup GetSetup()
     {
-        switch (level)
-        {
-            case 0:
-                return new TutorialSetup();
-            case 1:
-                return new Level1Setup();
-            case 2:
-                return new Level2Setup();
-            case 3:
-                return new Level3Setup();
-            default:
-                return null;
-        }
+        return GetSetupList()[level];
+    }
+
+    private List<LevelSetup> GetSetupList()
+    {
+        List<LevelSetup> levels = new();
+        string layout;
+        string spikeSets;
+
+        //------------------------
+        layout = 
+            "poxo"+
+            "xooo"+
+            "ooxo"+
+            "xooe";
+        spikeSets =
+            "----"+
+            "----"+
+            "----"+
+            "----";
+        levels.Add(new LevelSetup(4, 4, layout, 1, spikeSets));
+        //------------------------
+        layout = 
+            "poxo"+
+            "xooo"+
+            "ooxo"+
+            "xooe";
+        spikeSets =
+            "----"+
+            "----"+
+            "----"+
+            "----";
+        levels.Add(new LevelSetup(4, 4, layout, 1, spikeSets));
+        //------------------------
+        layout = 
+            "poxo"+
+            "xooo"+
+            "ooxo"+
+            "bbxe";
+        spikeSets =
+            "-n-n"+
+            "----"+
+            "w--e"+
+            "s--e"
+            +
+            "----"+
+            "----"+
+            "---w"+
+            "----";
+        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
+        
+
+        return levels;
     }
     
 }
 
-public interface ILevelSetup
+public class LevelSetup
 {
     public int Width {get; set;}
     public int Height {get; set;}
@@ -32,100 +73,13 @@ public interface ILevelSetup
     public int NumberOfSpikeSets {get; set;}
 
     public string SpikeSets {get; set;}
-}
 
-public class Level1Setup : ILevelSetup
-{
-    public int Width {get; set;} = 4;
-    public int Height {get; set;} = 4;
-    public string Layout {get; set;} = 
-        "poxo"+
-        "xooo"+
-        "ooxo"+
-        "xooe";
-
-    public int NumberOfSpikeSets {get; set;} = 2;
-
-    public string SpikeSets {get; set;} = 
-        "----"+
-        "----"+
-        "----"+
-        "----"
-        +
-        "----"+
-        "----"+
-        "----"+
-        "----";
-}
-
-public class Level2Setup : ILevelSetup
-{
-    public int Width {get; set;} = 4;
-    public int Height {get; set;} = 4;
-    public string Layout {get; set;} = 
-        "poxo"+
-        "xooo"+
-        "ooxo"+
-        "bbxe";
-
-    public int NumberOfSpikeSets {get; set;} = 2;
-
-    public string SpikeSets {get; set;} = 
-        "-n-n"+
-        "----"+
-        "w--e"+
-        "s--e"
-        +
-        "----"+
-        "----"+
-        "---w"+
-        "----";
-}
-
-public class Level3Setup : ILevelSetup
-{
-    public int Width {get; set;} = 4;
-    public int Height {get; set;} = 4;
-    public string Layout {get; set;} = 
-        "poxo"+
-        "xooo"+
-        "ooxo"+
-        "bbxe";
-
-    public int NumberOfSpikeSets {get; set;} = 2;
-
-    public string SpikeSets {get; set;} = 
-        "-n-n"+
-        "----"+
-        "w--e"+
-        "s--e"
-        +
-        "----"+
-        "----"+
-        "---w"+
-        "----";
-}
-
-public class TutorialSetup : ILevelSetup
-{
-    public int Width {get; set;} = 4;
-    public int Height {get; set;} = 4;
-    public string Layout {get; set;} = 
-        "poxo"+
-        "xooo"+
-        "ooxo"+
-        "bbxe";
-
-    public int NumberOfSpikeSets {get; set;} = 2;
-
-    public string SpikeSets {get; set;} = 
-        "-n-n"+
-        "----"+
-        "w--e"+
-        "s--e"
-        +
-        "----"+
-        "----"+
-        "---w"+
-        "----";
+    public LevelSetup(int width, int height, string layout, int numberOfSpikeSets, string spikeSets)
+    {
+        Width = width;
+        Height = height;
+        Layout = layout;
+        NumberOfSpikeSets = numberOfSpikeSets;
+        SpikeSets = spikeSets;
+    }
 }

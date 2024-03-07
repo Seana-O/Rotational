@@ -6,7 +6,7 @@ using System.IO.Pipes;
 
 public class LevelInitializer : MonoBehaviour
 {
-    [SerializeField] ILevelSetup setup;
+    [SerializeField] LevelSetup setup;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject boxPrefab;
     [SerializeField] GameObject spikePrefab;
