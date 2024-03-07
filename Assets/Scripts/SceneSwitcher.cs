@@ -3,29 +3,40 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    string loadedScene;
+    public int CurrentLevel { get; private set; }
 
     void Start()
     {
-        loadedScene = SceneManager.GetActiveScene().name;
+        DontDestroyOnLoad(this);
+        GoToHomeScreen();
     }
 
-    public void ResetScene()
+    public void ResetLevel()
     {
-        SwitchToScene(loadedScene);
+        SwitchToScene("LevelScene");
     }
 
     public void NextLevel()
     {
-        int currentLevel = int.Parse(loadedScene.Remove(0, 5));
-        int nextLevel = currentLevel + 1;
-        SwitchToScene("Level" + nextLevel.ToString());
+        CurrentLevel++;
+        SwitchToScene("LevelScene");
     }
 
-    public void SwitchToScene(string sceneName)
+    public void GoToLevel(int level)
+    {
+        CurrentLevel = level;
+        SwitchToScene("LevelScene");
+    }
+
+    public void GoToHomeScreen()
+    {
+        CurrentLevel = 0;
+        SwitchToScene("Home");
+    }
+
+    private void SwitchToScene(string sceneName)
     {
         Time.timeScale = 1;
-        loadedScene = sceneName;
         SceneManager.LoadScene(sceneName);
     }
 }

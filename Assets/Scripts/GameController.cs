@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
         if (playing)
         {
             if(Input.GetKeyDown(KeyCode.R))
-                sceneSwitcher.ResetScene();
+                sceneSwitcher.ResetLevel();
             else if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if(!paused)   

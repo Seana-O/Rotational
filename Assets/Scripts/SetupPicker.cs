@@ -3,10 +3,9 @@ using UnityEngine;
 
 public class SetupPicker : MonoBehaviour
 {
-    [SerializeField] int level;
-
     public LevelSetup GetSetup()
     {
+        int level = FindObjectOfType<SceneSwitcher>().CurrentLevel;
         return GetSetupList()[level];
     }
 

@@ -54,38 +54,6 @@ public class GravityController : MonoBehaviour
 
     void SetGravity(GravityDirection dir)
     {
-        int gravityMultiplier = 250;
-        bool horizontalGravity = false;
-        /*
-        switch (dir)
-        {
-            case GravityDirection.Up:
-                gravityDirection = new Vector2(0, gravityMultiplier);
-                break;
-            case GravityDirection.Down:
-                gravityDirection = new Vector2(0, -gravityMultiplier);
-                break;
-            case GravityDirection.Left:
-                gravityDirection = new Vector2(-gravityMultiplier, 0);
-                horizontalGravity = true;
-                break;
-            case GravityDirection.Right:
-                gravityDirection = new Vector2(gravityMultiplier, 0);
-                horizontalGravity = true;
-                break;
-        }
-        
-        Physics2D.gravity = gravityDirection;
-        foreach(Object obj in objects)
-        {
-            obj.moving = true;
-
-            if(horizontalGravity)
-                obj.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-            else
-                obj.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-        }
-        */
         switch (dir)
         {
             case GravityDirection.Up:
