@@ -8,13 +8,27 @@ public class SetupPicker : MonoBehaviour
         int level = FindObjectOfType<SceneSwitcher>().CurrentLevel;
         return GetSetupList()[level];
     }
+    public int NumberOfLevels()
+    {
+        return GetSetupList().Count;
+    }
 
     private List<LevelSetup> GetSetupList()
     {
         List<LevelSetup> levels = new();
         string layout;
         string spikeSets;
-
+        
+        //------------------------
+        layout = 
+            "po"+
+            "xo"+
+            "xe";
+        spikeSets =
+            "--"+
+            "--"+
+            "--";
+        levels.Add(new LevelSetup(2, 3, layout, 1, spikeSets));
         //------------------------
         layout = 
             "poxo"+
@@ -39,6 +53,40 @@ public class SetupPicker : MonoBehaviour
             "----"+
             "----";
         levels.Add(new LevelSetup(4, 4, layout, 1, spikeSets));
+        //------------------------
+        layout = 
+            "poxo"+
+            "xooo"+
+            "ooxo"+
+            "bbxe";
+        spikeSets =
+            "-n-n"+
+            "----"+
+            "w--e"+
+            "s--e"
+            +
+            "----"+
+            "----"+
+            "---w"+
+            "----";
+        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
+        //------------------------
+        layout = 
+            "poxo"+
+            "xooo"+
+            "ooxo"+
+            "bbxe";
+        spikeSets =
+            "-n-n"+
+            "----"+
+            "w--e"+
+            "s--e"
+            +
+            "----"+
+            "----"+
+            "---w"+
+            "----";
+        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
         //------------------------
         layout = 
             "poxo"+
