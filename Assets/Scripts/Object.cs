@@ -30,20 +30,29 @@ public class Object : MonoBehaviour
 
             if(hit.collider != null /*&& (hit.collider.CompareTag("ClosedTile") || hit.collider.CompareTag("Box") || hit.collider.CompareTag("Player")*/)
             {
-                if (gameObject.CompareTag("Player") && hit.collider.gameObject.CompareTag("Spike"))
+                if (gameObject.CompareTag("Player") && hit.collider.gameObject.CompareTag("Spike")) // if player hit spike
                     FindObjectOfType<GameController>().LevelFailed();
-                else if(gameObject.CompareTag("Player") && currentGridPoint.isEndGridPoint)
+                else if(gameObject.CompareTag("Player") && currentGridPoint.isEndGridPoint) // if player reached end
                     FindObjectOfType<GameController>().FinishLevel();
-                else
+                else if(hit.collider.gameObject.CompareTag("Box") || hit.collider.gameObject.CompareTag("Player"))
                 {
-                    moving = false;
-                    gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-                    gameObject.transform.position = currentGridPoint.transform.position;
+                    if(!hit.collider.gameObject.GetComponent<Object>().moving)
+                        StopMoving();
                 }
+                else
+                    StopMoving();
             }
             gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
+
+    private void StopMoving()
+    {
+        moving = false;
+        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        gameObject.transform.position = currentGridPoint.transform.position;
+    }
+
     private void OnDrawGizmos()
     {
         Vector2 gravityDir = gravityController.gravityDirection.normalized;

@@ -8,7 +8,7 @@ public class LevelSelectCreator : MonoBehaviour
 {
     [SerializeField] GameObject levelButton;
     [SerializeField] GameObject startPosObject;
-    readonly int numberOfRows = 5;
+    readonly int numberOfRows = 6;
 
     void Start()
     {
