@@ -12,6 +12,11 @@ public class SetupPicker : MonoBehaviour
     {
         return GetSetupList().Count;
     }
+    public bool IsLastLevel()
+    {
+        int level = FindObjectOfType<SceneSwitcher>().CurrentLevel;
+        return level == NumberOfLevels() - 1;
+    }
 
     private List<LevelSetup> GetSetupList()
     {
@@ -22,37 +27,29 @@ public class SetupPicker : MonoBehaviour
         //------------------------
         layout = 
             "po"+
-            "xo"+
             "xe";
         spikeSets =
             "--"+
-            "--"+
             "--";
-        levels.Add(new LevelSetup(2, 3, layout, 1, spikeSets));
+        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets));
         //------------------------
         layout = 
-            "poxo"+
-            "xooo"+
-            "ooxo"+
-            "xooe";
+            "oe"+
+            "po";
         spikeSets =
-            "----"+
-            "----"+
-            "----"+
-            "----";
-        levels.Add(new LevelSetup(4, 4, layout, 1, spikeSets));
+            "w-"+
+            "-e";
+        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets));
         //------------------------
         layout = 
-            "poxo"+
-            "xooo"+
-            "ooxo"+
-            "xooe";
+            "poo"+
+            "xoo"+
+            "obe";
         spikeSets =
-            "----"+
-            "----"+
-            "----"+
-            "----";
-        levels.Add(new LevelSetup(4, 4, layout, 1, spikeSets));
+            "---"+
+            "---"+
+            "---";
+        levels.Add(new LevelSetup(3, 3, layout, 1, spikeSets));
         //------------------------
         layout = 
             "poxo"+
@@ -70,41 +67,6 @@ public class SetupPicker : MonoBehaviour
             "---w"+
             "----";
         levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
-        //------------------------
-        layout = 
-            "poxo"+
-            "xooo"+
-            "ooxo"+
-            "bbxe";
-        spikeSets =
-            "-n-n"+
-            "----"+
-            "w--e"+
-            "s--e"
-            +
-            "----"+
-            "----"+
-            "---w"+
-            "----";
-        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
-        //------------------------
-        layout = 
-            "poxo"+
-            "xooo"+
-            "ooxo"+
-            "bbxe";
-        spikeSets =
-            "-n-n"+
-            "----"+
-            "w--e"+
-            "s--e"
-            +
-            "----"+
-            "----"+
-            "---w"+
-            "----";
-        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
-        
 
         return levels;
     }

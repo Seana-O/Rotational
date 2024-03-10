@@ -19,14 +19,10 @@ public class GravityController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-            TrySetGravity(GravityDirection.Up);
-        else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-            TrySetGravity(GravityDirection.Down);
-        else if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-            TrySetGravity(GravityDirection.Left);
+        if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            TrySetGravity(Direction.Left);
         else if(Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            TrySetGravity(GravityDirection.Right);
+            TrySetGravity(Direction.Right);
 
         if (waitingForRotation && !levelRotater.Rotating)
         {
@@ -42,41 +38,15 @@ public class GravityController : MonoBehaviour
         }
     }
 
-    void TrySetGravity(GravityDirection dir)
+    void TrySetGravity(Direction dir)
     {
         if(waitingForRotation) return;
 
         foreach(Object obj in objects)
             if(obj.moving) return;
 
-        SetGravity(dir);
-    }
+        levelRotater.Rotate(dir);
 
-    void SetGravity(GravityDirection dir)
-    {
-        switch (dir)
-        {
-            case GravityDirection.Up:
-                break;
-            case GravityDirection.Down:
-                break;
-            case GravityDirection.Left:
-                levelRotater.Rotate(Direction.Left);
-                break;
-            case GravityDirection.Right:
-                levelRotater.Rotate(Direction.Right);
-                break;
-        }
-
-       
         waitingForRotation = true;
-    }
-
-    enum GravityDirection
-    {
-        Up,
-        Down,
-        Left,
-        Right
     }
 }

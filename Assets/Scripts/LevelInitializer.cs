@@ -13,14 +13,16 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField] GameObject openTilePrefab;
     [SerializeField] GameObject closedTilePrefab;
     [SerializeField] GameObject finishTilePrefab;
+    [SerializeField] GameObject cornerPrefab;
     [SerializeField] GameObject componentParent;
+    [SerializeField] GameObject nextLevelButton;
     GameObject tileParent;
     GameObject spikeParent;
     GameObject boxParent;
 
     TileType[,] grid;
 
-    readonly int tileSize = 50;
+    readonly int tileSize = 100;
 
     void Start()
     {
@@ -54,6 +56,9 @@ public class LevelInitializer : MonoBehaviour
         boxParent.transform.localPosition = new Vector3(0, 0, 0);
 
         InitializeGrid();
+
+        if(GetComponent<SetupPicker>().IsLastLevel())
+            nextLevelButton.SetActive(false);
     }
 
     void SetTileSize(GameObject prefab, Vector2 size)
@@ -80,6 +85,7 @@ public class LevelInitializer : MonoBehaviour
             CreateTile(-1, y, closedTilePrefab);
             CreateTile(width, y, closedTilePrefab);  
         }
+        AddCorners(width, height);
 
         for(int x = 0; x < width; x++)
             for(int y = 0; y < height; y++)
@@ -98,6 +104,7 @@ public class LevelInitializer : MonoBehaviour
                         break;
                     case 'e':
                         t = TileType.Finish;
+                        CreateTile(x, y, openTilePrefab);
                         CreateTile(x, y, finishTilePrefab);
                         break;
                     case 'b':
@@ -181,6 +188,22 @@ public class LevelInitializer : MonoBehaviour
     {
         GameObject tile = Instantiate(prefab, tileParent.transform);
         tile.transform.localPosition = GetWorldLocation(x,y);
+    }
+
+    void AddCorners(int w, int h)
+    {
+        cornerPrefab.transform.rotation = Quaternion.identity;
+        cornerPrefab.transform.Rotate(new Vector3(0, 0, 45));
+        CreateTile(-1, -1, cornerPrefab);
+
+        cornerPrefab.transform.Rotate(new Vector3(0, 0, 90));
+        CreateTile(-1, h, cornerPrefab);
+
+        cornerPrefab.transform.Rotate(new Vector3(0, 0, 90));
+        CreateTile(w, h, cornerPrefab);
+        
+        cornerPrefab.transform.Rotate(new Vector3(0, 0, 90));
+        CreateTile(w, -1, cornerPrefab);
     }
 
     bool ValidSetup()
