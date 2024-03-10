@@ -26,8 +26,8 @@ public class SetupPicker : MonoBehaviour
         
         //------------------------
         layout = 
-            "po"+
-            "xe";
+            "xe"+
+            "po";
         spikeSets =
             "--"+
             "--";
@@ -46,8 +46,8 @@ public class SetupPicker : MonoBehaviour
             "xoo"+
             "obe";
         spikeSets =
-            "---"+
-            "---"+
+            "n--"+
+            "--e"+
             "---";
         levels.Add(new LevelSetup(3, 3, layout, 1, spikeSets));
         //------------------------
@@ -67,6 +67,22 @@ public class SetupPicker : MonoBehaviour
             "---w"+
             "----";
         levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
+        //------------------------
+        layout = 
+            "oooxx"+
+            "opoxx"+
+            "oxoxe"+
+            "oooxo"+
+            "boooo"+
+            "xxoxo";
+        spikeSets =
+            "-----"+
+            "-----"+
+            "-----"+
+            "-----"+
+            "-----"+
+            "-----";
+        levels.Add(new LevelSetup(5, 6, layout, 1, spikeSets));
 
         return levels;
     }

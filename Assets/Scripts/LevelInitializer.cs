@@ -214,8 +214,8 @@ public class LevelInitializer : MonoBehaviour
 
     Vector2 GetWorldLocation(int gridX, int gridY)
     {
-        float width = (int)(setup.Width/2);
-        float height = (int)(setup.Height/2);
+        float width = setup.Width/2;
+        float height = setup.Height/2;
 
         float x = (gridX - width) * tileSize + tileSize/2;
         float y = -((gridY - height) * tileSize + tileSize/2);
