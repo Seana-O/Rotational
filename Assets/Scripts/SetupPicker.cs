@@ -97,7 +97,7 @@ public class SetupPicker : MonoBehaviour
             "w------"+
             "-------"+
             "-------"+
-            "-------"+
+            "------e"+
             "-------"+
             "-------";
         levels.Add(new LevelSetup(7, 7, layout, 1, spikeSets));

@@ -20,6 +20,7 @@ public class LevelInitializer : MonoBehaviour
     GameObject tileParent;
     GameObject spikeParent;
     GameObject boxParent;
+    GameObject cornerParent;
 
     TileType[,] grid;
 
@@ -41,20 +42,10 @@ public class LevelInitializer : MonoBehaviour
         SetTileSize(spikePrefab, new Vector2(tileSize, tileSize/8));
         SetTileSize(playerPrefab, size - new Vector2(1, 1));
 
-        tileParent = new GameObject("Tiles");
-        tileParent.transform.parent = componentParent.transform;
-        tileParent.transform.localScale = new Vector3(1, 1, 1);
-        tileParent.transform.localPosition = new Vector3(0, 0, 0);
-
-        spikeParent = new GameObject("Spikes");
-        spikeParent.transform.parent = componentParent.transform;
-        spikeParent.transform.localScale = new Vector3(1, 1, 1);
-        spikeParent.transform.localPosition = new Vector3(0, 0, 0);
-
-        boxParent = new GameObject("Boxes");
-        boxParent.transform.parent = componentParent.transform;
-        boxParent.transform.localScale = new Vector3(1, 1, 1);
-        boxParent.transform.localPosition = new Vector3(0, 0, 0);
+        tileParent = CreateParent("Tiles");
+        spikeParent = CreateParent("Spikes");
+        boxParent = CreateParent("Boxes");
+        cornerParent = CreateParent("Corners");
 
         InitializeGrid();
 
@@ -70,6 +61,15 @@ public class LevelInitializer : MonoBehaviour
         prefab.GetComponent<RectTransform>().sizeDelta = size;
         if(prefab.TryGetComponent(out BoxCollider2D b))
             b.size = size;
+    }
+
+    GameObject CreateParent(string name)
+    {
+        GameObject obj = new GameObject(name);
+        obj.transform.parent = componentParent.transform;
+        obj.transform.localScale = new Vector3(1, 1, 1);
+        obj.transform.localPosition = new Vector3(0, 0, 0);
+        return obj;
     }
 
     void InitializeGrid()
@@ -194,20 +194,26 @@ public class LevelInitializer : MonoBehaviour
         tile.transform.localPosition = GetWorldLocation(x,y);
     }
 
+    void CreateCorner(int x, int y, GameObject prefab)
+    {
+        GameObject corner = Instantiate(prefab, cornerParent.transform);
+        corner.transform.localPosition = GetWorldLocation(x,y);
+    }
+
     void AddCorners(int w, int h)
     {
         cornerPrefab.transform.rotation = Quaternion.identity;
         cornerPrefab.transform.Rotate(new Vector3(0, 0, 45));
-        CreateTile(-1, -1, cornerPrefab);
+        CreateCorner(-1, -1, cornerPrefab);
 
         cornerPrefab.transform.Rotate(new Vector3(0, 0, 90));
-        CreateTile(-1, h, cornerPrefab);
+        CreateCorner(-1, h, cornerPrefab);
 
         cornerPrefab.transform.Rotate(new Vector3(0, 0, 90));
-        CreateTile(w, h, cornerPrefab);
+        CreateCorner(w, h, cornerPrefab);
         
         cornerPrefab.transform.Rotate(new Vector3(0, 0, 90));
-        CreateTile(w, -1, cornerPrefab);
+        CreateCorner(w, -1, cornerPrefab);
     }
 
     bool ValidSetup()
