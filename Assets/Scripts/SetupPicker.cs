@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SetupPicker : MonoBehaviour
 {
+    public List<GameObject> tutorialBoxes = new();
+
     public LevelSetup GetSetup()
     {
         int level = FindObjectOfType<SceneSwitcher>().CurrentLevel;
@@ -31,7 +33,7 @@ public class SetupPicker : MonoBehaviour
         spikeSets =
             "--"+
             "--";
-        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets));
+        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets, tutorialBoxes[0]));
         //------------------------
         layout = 
             "oe"+
@@ -39,7 +41,7 @@ public class SetupPicker : MonoBehaviour
         spikeSets =
             "w-"+
             "-e";
-        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets));
+        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets, tutorialBoxes[1]));
         //------------------------
         layout = 
             "poo"+
@@ -49,7 +51,7 @@ public class SetupPicker : MonoBehaviour
             "n--"+
             "--e"+
             "---";
-        levels.Add(new LevelSetup(3, 3, layout, 1, spikeSets));
+        levels.Add(new LevelSetup(3, 3, layout, 1, spikeSets, tutorialBoxes[2]));
         //------------------------
         layout = 
             "poxo"+
@@ -66,7 +68,7 @@ public class SetupPicker : MonoBehaviour
             "----"+
             "---w"+
             "----";
-        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets));
+        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets, tutorialBoxes[3]));
         //------------------------
         layout = 
             "oooxx"+
@@ -109,18 +111,22 @@ public class LevelSetup
 {
     public int Width {get; set;}
     public int Height {get; set;}
+
     public string Layout {get; set;}
 
     public int NumberOfSpikeSets {get; set;}
 
     public string SpikeSets {get; set;}
 
-    public LevelSetup(int width, int height, string layout, int numberOfSpikeSets, string spikeSets)
+    public GameObject TutorialBox {get; set;}
+
+    public LevelSetup(int width, int height, string layout, int numberOfSpikeSets, string spikeSets, GameObject tutorialBox = null)
     {
         Width = width;
         Height = height;
         Layout = layout;
         NumberOfSpikeSets = numberOfSpikeSets;
         SpikeSets = spikeSets;
+        TutorialBox = tutorialBox;
     }
 }

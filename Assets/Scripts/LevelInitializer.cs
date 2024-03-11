@@ -14,6 +14,7 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField] GameObject closedTilePrefab;
     [SerializeField] GameObject finishTilePrefab;
     [SerializeField] GameObject cornerPrefab;
+    [SerializeField] GameObject canvas;
     [SerializeField] GameObject componentParent;
     [SerializeField] GameObject nextLevelButton;
     GameObject tileParent;
@@ -56,6 +57,9 @@ public class LevelInitializer : MonoBehaviour
         boxParent.transform.localPosition = new Vector3(0, 0, 0);
 
         InitializeGrid();
+
+        if(setup.TutorialBox != null)
+            Instantiate(setup.TutorialBox, canvas.transform);
 
         if(GetComponent<SetupPicker>().IsLastLevel())
             nextLevelButton.SetActive(false);
