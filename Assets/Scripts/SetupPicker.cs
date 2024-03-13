@@ -71,36 +71,34 @@ public class SetupPicker : MonoBehaviour
         levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets, tutorialBoxes[3]));
         //------------------------
         layout = 
-            "oooxx"+
-            "opoxx"+
-            "oxoxe"+
-            "boooo"+
-            "xxoxo";
+            "oobob"+
+            "exxox"+
+            "xxxoo"+
+            "xxpoo"+
+            "xxxxo";
         spikeSets =
+            "-ss-n"+
             "-----"+
-            "-----"+
-            "-----"+
-            "-----"+
-            "-----";
+            "----e"+
+            "--w--"+
+            "----e";
         levels.Add(new LevelSetup(5, 5, layout, 1, spikeSets));
         //------------------------
         layout = 
-            "oooxeoo"+
-            "opoxxoo"+
-            "oxoxobo"+
-            "booooxo"+
-            "xoooooo"+
-            "booooxx"+
-            "xxoxoxx";
+            "oooxoe"+
+            "opoxox"+
+            "oxoxoo"+
+            "booboo"+
+            "xxoxoo"+
+            "xxxxoo";
         spikeSets =
-            "-------"+
-            "w------"+
-            "-------"+
-            "-------"+
-            "------e"+
-            "-------"+
-            "-------";
-        levels.Add(new LevelSetup(7, 7, layout, 1, spikeSets));
+            "----w-"+
+            "----w-"+
+            "--w---"+
+            "-----e"+
+            "--s---"+
+            "----ss";
+        levels.Add(new LevelSetup(6, 6, layout, 1, spikeSets));
 
         return levels;
     }
