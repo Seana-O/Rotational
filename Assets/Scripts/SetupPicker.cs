@@ -73,7 +73,7 @@ public class SetupPicker : MonoBehaviour
         layout = 
             "oobob"+
             "exxox"+
-            "xxxoo"+
+            "xxooo"+
             "xxpoo"+
             "xxxxo";
         spikeSets =
