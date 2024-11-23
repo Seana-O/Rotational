@@ -7,6 +7,8 @@ TagManager:
   - ClosedTile
   - Box
   - Spike
+  - StickySurface
+  - SpikeBox
   layers:
   - Default
   - TransparentFX

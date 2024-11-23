@@ -140,6 +140,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7834987231755192509, guid: 5c4e546399ac51f4a8055609c6596226, type: 3}
     - target: {fileID: 2841084332605487051, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
+      propertyPath: stickyPrefab
+      value: 
+      objectReference: {fileID: 6751633294264600435, guid: 80c098d79aff3114a97f6e2c1cc5fbf2, type: 3}
+    - target: {fileID: 2841084332605487051, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
+      propertyPath: spikeBoxPrefab
+      value: 
+      objectReference: {fileID: 7212651179312935644, guid: 56b799c9df844004486f63751d2f7aab, type: 3}
+    - target: {fileID: 2841084332605487051, guid: e01479db57cd6fa42a83d0c9bd895cc9, type: 3}
       propertyPath: nextLevelButton
       value: 
       objectReference: {fileID: 8214513669655922381}

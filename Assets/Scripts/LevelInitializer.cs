@@ -10,6 +10,8 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject boxPrefab;
     [SerializeField] GameObject spikePrefab;
+    [SerializeField] GameObject spikeBoxPrefab;
+    [SerializeField] GameObject stickyPrefab;
     [SerializeField] GameObject openTilePrefab;
     [SerializeField] GameObject closedTilePrefab;
     [SerializeField] GameObject finishTilePrefab;
@@ -19,6 +21,7 @@ public class LevelInitializer : MonoBehaviour
     [SerializeField] GameObject nextLevelButton;
     GameObject tileParent;
     GameObject spikeParent;
+    GameObject stickyParent;
     GameObject boxParent;
     GameObject cornerParent;
 
@@ -39,11 +42,14 @@ public class LevelInitializer : MonoBehaviour
         SetTileSize(closedTilePrefab, size);
         SetTileSize(finishTilePrefab, size);
         SetTileSize(boxPrefab, size - new Vector2(1, 1));
+        SetTileSize(spikeBoxPrefab, size - new Vector2(1, 1));
         SetTileSize(spikePrefab, new Vector2(tileSize, tileSize/8));
+        SetTileSize(stickyPrefab, new Vector2(tileSize, tileSize/8));
         SetTileSize(playerPrefab, size - new Vector2(1, 1));
 
         tileParent = CreateParent("Tiles");
         spikeParent = CreateParent("Spikes");
+        stickyParent = CreateParent("StickyTiles");
         boxParent = CreateParent("Boxes");
         cornerParent = CreateParent("Corners");
 
@@ -116,6 +122,11 @@ public class LevelInitializer : MonoBehaviour
                         PlaceBlock(x, y);
                         CreateTile(x, y, openTilePrefab);
                         break;
+                    case 's':
+                        t = TileType.Open;
+                        PlaceSpikeBlock(x, y);
+                        CreateTile(x, y, openTilePrefab);
+                        break;
                     case 'p':
                         t = TileType.Open;
                         PlacePlayer(x, y);
@@ -124,24 +135,37 @@ public class LevelInitializer : MonoBehaviour
                 }
                 grid[x,y] = t;
 
-                // add spikes
-                for(int i = 0; i < setup.NumberOfSpikeSets; i++)
+                if(setup.SpikeSets != null)
                 {
-                    switch(setup.SpikeSets[i * width * height + y * width + x])
+                    // add spikes
+                    for(int i = 0; i < setup.NumberOfSpikeSets; i++)
                     {
-                        case 'n':
-                            PlaceSpike(x, y, SpikeDirection.North);
-                            break;
-                        case 'e':
-                            PlaceSpike(x, y, SpikeDirection.East);
-                            break;
-                        case 's':
-                            PlaceSpike(x, y, SpikeDirection.South);
-                            break;
-                        case 'w':
-                            PlaceSpike(x, y, SpikeDirection.West);
-                            break;
+                        char c = setup.SpikeSets[i * width * height + y * width + x];
+
+                        AddOnDirection dir = GetDirection(c);
+
+                        if(dir != AddOnDirection.none)
+                        {
+                            PlaceAddOn(x, y, spikePrefab, spikeParent, dir);
+                        }
+
+                        
                     }
+                }
+
+                if(setup.StickySets != null)
+                {
+                    
+                    // add sticky tiles
+                    char c = setup.StickySets[y * width + x];
+
+                    AddOnDirection dir = GetDirection(c);
+
+                    if(dir != AddOnDirection.none)
+                    {
+                        PlaceAddOn(x, y, stickyPrefab, stickyParent, dir);
+                    }
+
                 }
             }
     }
@@ -151,41 +175,47 @@ public class LevelInitializer : MonoBehaviour
         box.transform.localPosition = GetWorldLocation(x,y);
     }
 
+    void PlaceSpikeBlock(int x, int y)
+    {
+        GameObject spikeBox = Instantiate(spikeBoxPrefab, boxParent.transform);
+        spikeBox.transform.localPosition = GetWorldLocation(x,y);
+    }
+
     void PlacePlayer(int x, int y)
     {
         GameObject player = Instantiate(playerPrefab, componentParent.transform);
         player.transform.localPosition = GetWorldLocation(x,y);
     }
 
-    void PlaceSpike(int x, int y, SpikeDirection dir)
+    void PlaceAddOn(int x, int y, GameObject prefab, GameObject parent, AddOnDirection dir)
     {
-        GameObject spike = Instantiate(spikePrefab, spikeParent.transform);
+        GameObject obj = Instantiate(prefab, parent.transform);
 
         int zRotation = 0;
         Vector2 location = GetWorldLocation(x,y);
-        float locationOffset = tileSize/2 + spikePrefab.GetComponent<RectTransform>().sizeDelta.y / 2 - 1;
+        float locationOffset = tileSize/2 + prefab.GetComponent<RectTransform>().sizeDelta.y / 2 - 1;
 
         switch (dir)
         {
-            case SpikeDirection.North:
+            case AddOnDirection.North:
                 location.y += locationOffset;
                 zRotation = 180;
                 break;
-            case SpikeDirection.East:
+            case AddOnDirection.East:
                 location.x += locationOffset;
                 zRotation = 90;
                 break;
-            case SpikeDirection.South:
+            case AddOnDirection.South:
                 location.y -= locationOffset;
                 break;
-            case SpikeDirection.West:
+            case AddOnDirection.West:
                 location.x -= locationOffset;
                 zRotation = -90;
                 break;
         }
 
-        spike.transform.localPosition = location;
-        spike.transform.Rotate(new Vector3(0, 0, zRotation)); 
+        obj.transform.localPosition = location;
+        obj.transform.Rotate(new Vector3(0, 0, zRotation)); 
     }
 
     void CreateTile(int x, int y, GameObject prefab)
@@ -219,7 +249,7 @@ public class LevelInitializer : MonoBehaviour
     bool ValidSetup()
     {
         return setup.Layout.Length == setup.Width * setup.Height 
-            && setup.Layout.Length == setup.SpikeSets.Length / setup.NumberOfSpikeSets;
+            && (setup.SpikeSets == null || setup.Layout.Length == setup.SpikeSets.Length / setup.NumberOfSpikeSets);
     }
 
     Vector2 GetWorldLocation(int gridX, int gridY)
@@ -232,6 +262,23 @@ public class LevelInitializer : MonoBehaviour
 
         return new Vector2(x,y);
     }
+
+    AddOnDirection GetDirection(char c)
+    {
+        switch(c)
+        {
+            case 'n':
+                return AddOnDirection.North;
+            case 'e':
+                return AddOnDirection.East;
+            case 's':
+                return AddOnDirection.South;
+            case 'w':
+                return AddOnDirection.West;
+            default:
+                return AddOnDirection.none;
+        }
+    }
 }
 
 public enum TileType
@@ -241,10 +288,11 @@ public enum TileType
     Finish
 }
 
-public enum SpikeDirection
+public enum AddOnDirection
 {
     North,
     East,
     South,
-    West
+    West,
+    none
 }

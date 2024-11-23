@@ -27,12 +27,7 @@ public class GravityController : MonoBehaviour
         if (waitingForRotation && !levelRotater.Rotating)
         {
             foreach(Object obj in objects)
-            {
-                obj.moving = true;
-
-                obj.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionX;
-                obj.GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
-            }
+                obj.StartMoving();
 
             waitingForRotation = false;
         }

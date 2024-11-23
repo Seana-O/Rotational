@@ -22,18 +22,40 @@ public class SetupPicker : MonoBehaviour
 
     private List<LevelSetup> GetSetupList()
     {
+        // o = open
+        // x = closed
+        // e = finish
+        // b = block
+        // s = spike block
+        // p = player
+
         List<LevelSetup> levels = new();
         string layout;
         string spikeSets;
+        string stickySets;
         
         //------------------------
         layout = 
             "xe"+
             "po";
-        spikeSets =
-            "--"+
-            "--";
-        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets, tutorialBoxes[0]));
+        levels.Add(new LevelSetup(2, 2, layout, 0, null, null, tutorialBoxes[0]));
+        //------------------------
+        layout = 
+            "pox"+
+            "xoe"+
+            "xoo";
+        stickySets =
+            "---"+
+            "---"+
+            "-w-";
+        levels.Add(new LevelSetup(3, 3, layout, 1, null, stickySets));
+        //------------------------
+        layout = 
+            "poox"+
+            "xooo"+
+            "oooo"+
+            "xexx";
+        levels.Add(new LevelSetup(4, 4, layout, 1));
         //------------------------
         layout = 
             "oe"+
@@ -41,7 +63,7 @@ public class SetupPicker : MonoBehaviour
         spikeSets =
             "w-"+
             "-e";
-        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets, tutorialBoxes[1]));
+        levels.Add(new LevelSetup(2, 2, layout, 1, spikeSets, null, tutorialBoxes[1]));
         //------------------------
         layout = 
             "poo"+
@@ -51,7 +73,13 @@ public class SetupPicker : MonoBehaviour
             "n--"+
             "--e"+
             "---";
-        levels.Add(new LevelSetup(3, 3, layout, 1, spikeSets, tutorialBoxes[2]));
+        levels.Add(new LevelSetup(3, 3, layout, 1, spikeSets, null, tutorialBoxes[2]));
+        //------------------------
+        layout = 
+            "xox"+
+            "xex"+
+            "bpx";
+        levels.Add(new LevelSetup(3, 3, layout, 1));
         //------------------------
         layout = 
             "poxo"+
@@ -68,7 +96,7 @@ public class SetupPicker : MonoBehaviour
             "----"+
             "---w"+
             "----";
-        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets, tutorialBoxes[3]));
+        levels.Add(new LevelSetup(4, 4, layout, 2, spikeSets, null, tutorialBoxes[3]));
         //------------------------
         layout = 
             "oobob"+
@@ -100,6 +128,23 @@ public class SetupPicker : MonoBehaviour
             "----ss";
         levels.Add(new LevelSetup(6, 6, layout, 1, spikeSets));
 
+        //------------------------sticky surfaces
+        layout = 
+            "pe"+
+            "oo";
+        stickySets =
+            "w-"+
+            "--";
+        levels.Add(new LevelSetup(2, 2, layout, 1, null, stickySets));
+
+        //------------------------spike boxes
+        layout = 
+            "pooo"+
+            "xxoo"+
+            "oxoo"+
+            "osoe";
+        levels.Add(new LevelSetup(4, 4, layout, 1, null, null, tutorialBoxes[2]));
+
         return levels;
     }
     
@@ -116,15 +161,18 @@ public class LevelSetup
 
     public string SpikeSets {get; set;}
 
+    public string StickySets {get; set;}
+
     public GameObject TutorialBox {get; set;}
 
-    public LevelSetup(int width, int height, string layout, int numberOfSpikeSets, string spikeSets, GameObject tutorialBox = null)
+    public LevelSetup(int width, int height, string layout, int numberOfSpikeSets, string spikeSets = null, string stickySets = null, GameObject tutorialBox = null)
     {
         Width = width;
         Height = height;
         Layout = layout;
         NumberOfSpikeSets = numberOfSpikeSets;
         SpikeSets = spikeSets;
+        StickySets = stickySets;
         TutorialBox = tutorialBox;
     }
 }
