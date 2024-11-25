@@ -5,7 +5,7 @@ using static LevelRotater;
 
 public class GravityController : MonoBehaviour
 {
-    public List<Object> objects = new();
+    public List<FallingComponent> fallingComponents = new();
     public Vector2 gravityDirection = Vector2.down;
     public bool waitingForRotation = false;
     LevelRotater levelRotater;
@@ -24,10 +24,10 @@ public class GravityController : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             TrySetGravity(Direction.Right);
 
-        if (waitingForRotation && !levelRotater.Rotating)
+        if (waitingForRotation && !levelRotater.Rotating)                   // if levelrotater just stopped rotating
         {
-            foreach(Object obj in objects)
-                obj.StartMoving();
+            foreach(FallingComponent f in fallingComponents)                // drop all objects
+                f.TryStartFalling();
 
             waitingForRotation = false;
         }
@@ -35,13 +35,12 @@ public class GravityController : MonoBehaviour
 
     void TrySetGravity(Direction dir)
     {
-        if(waitingForRotation) return;
+        if(waitingForRotation) return;                                       // don't start rotating if already rotating
 
-        foreach(Object obj in objects)
-            if(obj.moving) return;
+        foreach(FallingComponent obj in fallingComponents)                   // don't start rotating if any object is still falling
+            if(obj.IsFalling) return;
 
         levelRotater.Rotate(dir);
-
         waitingForRotation = true;
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - Spike
   - StickySurface
   - SpikeBox
+  - OpenTile
   layers:
   - Default
   - TransparentFX

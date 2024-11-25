@@ -16,9 +16,9 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
-        if(pauseScreen != null) pauseScreen.SetActive(false);
-        if(gameOverScreen != null) gameOverScreen.SetActive(false);
-        if(levelCompleteScreen != null) levelCompleteScreen.SetActive(false);
+        pauseScreen.SetActive(false);
+        gameOverScreen.SetActive(false);
+        levelCompleteScreen.SetActive(false);
         paused = false;
         playing = true;
         Time.timeScale = 1;
