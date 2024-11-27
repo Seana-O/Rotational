@@ -70,4 +70,12 @@ public class GridInitializer : MonoBehaviour
         GameObject corner = Instantiate(prefab, cornerParent.transform);
         corner.transform.localPosition = helper.GetWorldLocation(x, y, width, height);
     }
+
+    public void ClearGrid()
+    {
+        Destroy(tileParent);
+        Destroy(cornerParent);
+        tileParent   = helper.CreateParent("Tiles"   , gridParent);
+        cornerParent = helper.CreateParent("Corners" , gridParent);
+    }
 }

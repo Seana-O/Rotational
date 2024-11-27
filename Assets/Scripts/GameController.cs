@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
     bool paused = false;
     bool playing = true;
 
-    private void Start()
+    void Start()
     {
         sceneSwitcher = FindObjectOfType<SceneSwitcher>();
         pauseScreen.SetActive(false);
@@ -40,13 +40,13 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void FinishLevel()
+    public virtual void FinishLevel()
     {
         Time.timeScale = 0;
         playing = false;
         levelCompleteScreen.SetActive(true);
     }
-    public void LevelFailed()
+    public virtual void LevelFailed()
     {
         Time.timeScale = 0;
         playing = false;

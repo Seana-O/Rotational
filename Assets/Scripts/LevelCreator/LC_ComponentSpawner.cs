@@ -9,6 +9,7 @@ namespace LevelCreation
     public class LC_ComponentSpawner : MonoBehaviour, IDragHandler
     {
         GameObject componentParent;
+        [SerializeField] bool isAddOn = false;
 
         void Start()
         {
@@ -26,7 +27,8 @@ namespace LevelCreation
 
             // transform object into level component
             transform.SetParent(componentParent.transform, false);
-            gameObject.AddComponent(typeof(LC_Component));              
+            if (isAddOn) gameObject.AddComponent(typeof(LC_AddOnComponent));  
+            else gameObject.AddComponent(typeof(LC_Component));              
         }
 
         public void OnDrag (PointerEventData eventData) { }

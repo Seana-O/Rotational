@@ -4,10 +4,13 @@ using UnityEngine;
 
 namespace LevelCreation
 {
-    public class LC_GameController : MonoBehaviour
+    public class LC_GameController : GameController
     {
         [SerializeField] GameObject gameOverText;
         [SerializeField] GameObject levelCompleteText;
+
+        void Start() { }
+        void Update() { }
 
         private void OnDisable()
         {
@@ -16,17 +19,13 @@ namespace LevelCreation
             Time.timeScale = 1;
         }
 
-        void Update()
-        {
-
-        }
-
-        public void FinishLevel()
+        public override void FinishLevel()
         {
             Time.timeScale = 0;
             levelCompleteText.SetActive(true);
         }
-        public void LevelFailed()
+
+        public override void LevelFailed()
         {
             Time.timeScale = 0;
             gameOverText.SetActive(true);

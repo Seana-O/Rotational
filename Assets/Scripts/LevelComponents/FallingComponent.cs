@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class FallingComponent : LevelComponent
 {
@@ -89,6 +90,11 @@ public class FallingComponent : LevelComponent
         gameObject.layer = LayerMask.NameToLayer("Default");                                        // make object visible for raycasting
 
         return hit;
+    }
+
+    private void OnDestroy()
+    {
+        gravityController.fallingComponents.Remove(this);
     }
 
     private void OnDrawGizmos()
