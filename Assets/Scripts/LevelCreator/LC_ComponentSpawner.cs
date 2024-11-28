@@ -8,12 +8,13 @@ namespace LevelCreation
 {
     public class LC_ComponentSpawner : MonoBehaviour, IDragHandler
     {
-        GameObject componentParent;
+        GameObject componentParent, addOnParent;
         [SerializeField] bool isAddOn = false;
 
         void Start()
         {
             componentParent = FindObjectOfType<LC_Controller>().componentParent;
+            addOnParent = FindObjectOfType<LC_Controller>().addOnParent;
 
             transform.GetChild(0).gameObject.SetActive(false);  // set playable object inactive
         }
@@ -26,9 +27,16 @@ namespace LevelCreation
             clone.transform.localPosition = transform.localPosition;
 
             // transform object into level component
-            transform.SetParent(componentParent.transform, false);
-            if (isAddOn) gameObject.AddComponent(typeof(LC_AddOnComponent));  
-            else gameObject.AddComponent(typeof(LC_Component));              
+            if (isAddOn)
+            {
+                transform.SetParent(addOnParent.transform, false);
+                gameObject.AddComponent(typeof(LC_AddOnComponent)); 
+            }
+            else 
+            {
+                transform.SetParent(componentParent.transform, false);
+                gameObject.AddComponent(typeof(LC_Component));         
+            }
         }
 
         public void OnDrag (PointerEventData eventData) { }

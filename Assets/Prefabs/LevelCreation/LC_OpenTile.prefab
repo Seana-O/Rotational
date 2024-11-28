@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62cd424468566547a4af4af7cdd0e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  component: {fileID: 0}
+  addOns: []
 --- !u!1 &8257056077925807063
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,4 +194,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6ccb84effa7204080dee92fca8c124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEndGridPoint: 0
+  isEndGridTile: 0

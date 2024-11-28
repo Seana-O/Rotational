@@ -55,7 +55,7 @@ namespace LevelCreation
             transform.Rotate(new Vector3(0, 0, -90)); 
         }
 
-        protected override void RemoveFromCurrentTile()
+        public override void RemoveFromCurrentTile()
         {
             currentGridTile.addOns[(int)dir] = null;
             currentGridTile = null;

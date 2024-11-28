@@ -22,7 +22,7 @@ namespace LevelCreation
 
         [SerializeField] GameObject playButton, invalidText;
 
-        public GameObject componentParent;
+        public GameObject componentParent, addOnParent;
 
         void Start()
         {
@@ -64,28 +64,24 @@ namespace LevelCreation
         public void ClearGrid()
         {
             foreach(Transform child in componentParent.transform)
+            {
+                if(child.TryGetComponent<LC_Component>(out LC_Component c))
+                    c.RemoveFromCurrentTile();
                 Destroy(child.gameObject);
+            }
+            foreach(Transform child in addOnParent.transform)
+            {
+                if(child.TryGetComponent<LC_AddOnComponent>(out LC_AddOnComponent c))
+                    c.RemoveFromCurrentTile();
+                Destroy(child.gameObject);
+            }
 
             grid = new LC_GridTile[width * height];
         }
 
         public void CheckValidity()
         {
-            int playerCount = 0;
-            int finishCount = 0;
-            foreach(LC_GridTile t in grid)
-            {
-                if(t.component != null)
-                {
-                    if(t.component.CompareTag("Player"))
-                        playerCount++;
-                    else if(t.component.CompareTag("Finish"))
-                        finishCount++;
-                }
-            }
-            
-            /// TODO: No falling objects floating
-            if (playerCount == 1 && finishCount == 1)
+            if (IsValid())
             {
                 playButton.SetActive(true);
                 invalidText.SetActive(false);
@@ -95,6 +91,35 @@ namespace LevelCreation
                 playButton.SetActive(false);
                 invalidText.SetActive(true);
             }
+        }
+
+        bool IsValid()
+        {
+            int playerCount = 0;
+            int finishCount = 0;
+            foreach(LC_GridTile t in grid)
+            {
+                if(t.component != null)
+                {
+                    if(t.component.GetComponentInChildren<FallingComponent>(true) != null)                          // if component is falling object
+                    {
+                        Vector3[] v = new Vector3[4];
+                        t.GetComponent<RectTransform>().GetWorldCorners(v);                                         // get world space position of the tile's corners
+                        float size = Mathf.Abs(v[2].x - v[0].x);                                                    // get object size (width and height should be the same)
+
+                        RaycastHit2D[] hits = Physics2D.RaycastAll(t.transform.position, Vector2.down, size/2 + 1); // shoot ray downwards
+                        
+                        if(hits.Length <= 1) return false;                                                          // if object is floating, level is not valid
+                    }
+
+                    if(t.component.CompareTag("Player"))
+                        playerCount++;
+                    else if(t.component.CompareTag("Finish"))
+                        finishCount++;
+                }
+            }
+            
+            return playerCount == 1 && finishCount == 1;
         }
 
         public void StartPlaying()
@@ -135,6 +160,12 @@ namespace LevelCreation
             FindObjectOfType<LevelRotater>().transform.rotation = Quaternion.identity;
 
             lc_gameController.SetActive(false);
+        }
+
+        public void ResetPlaying()
+        {
+            StopPlaying();
+            StartPlaying();
         }
     }
 }

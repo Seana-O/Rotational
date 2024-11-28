@@ -44,10 +44,11 @@ namespace LevelCreation
                     return;
                 }
 
+            FindObjectOfType<LC_Controller>().CheckValidity();                          // tell controller to check level validity
             Destroy(gameObject);                                                        // object was dropped outside grid; destroy it
         }
 
-        protected virtual void RemoveFromCurrentTile()
+        public virtual void RemoveFromCurrentTile()
         {
             currentGridTile.component = null;
             currentGridTile = null;
